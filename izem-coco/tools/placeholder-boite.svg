@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 440" width="800" height="880">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f4d27a"/>
+      <stop offset=".55" stop-color="#d6a63a"/>
+      <stop offset="1" stop-color="#8a6420"/>
+    </linearGradient>
+    <linearGradient id="f" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1d1913"/>
+      <stop offset="1" stop-color="#0b0907"/>
+    </linearGradient>
+    <linearGradient id="s" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#110e0a"/>
+      <stop offset="1" stop-color="#050403"/>
+    </linearGradient>
+  </defs>
+  <ellipse cx="200" cy="418" rx="160" ry="14" fill="#000" opacity=".55"/>
+  <!-- dessus -->
+  <path d="M60 92 L238 60 L346 96 L168 130 Z" fill="#2a241b"/>
+  <!-- face avant -->
+  <path d="M60 92 L168 130 L168 410 L60 370 Z" fill="url(#s)"/>
+  <!-- face droite -->
+  <path d="M168 130 L346 96 L346 372 L168 410 Z" fill="url(#f)"/>
+  <path d="M168 130 L346 96" stroke="url(#g)" stroke-width="2"/>
+  <path d="M60 92 L168 130 L346 96" fill="none" stroke="#8a6420" stroke-width="1"/>
+  <!-- étiquette face droite -->
+  <g transform="matrix(1 -0.19 0 1 168 130)">
+    <rect x="22" y="40" width="134" height="196" fill="none" stroke="url(#g)" stroke-width="1.5"/>
+    <circle cx="89" cy="100" r="34" fill="none" stroke="url(#g)" stroke-width="2"/>
+    <path d="M89 74c-8 6-18 6-24 14-5 7-3 15-9 21 5 2 7 7 6 12 6-2 10 2 12 7 4-4 9-3 15-1 6-2 11-3 15 1 2-5 6-9 12-7-1-5 1-10 6-12-6-6-4-14-9-21-6-8-16-8-24-14z" fill="none" stroke="url(#g)" stroke-width="2"/>
+    <text x="89" y="166" text-anchor="middle" font-family="Georgia, serif" font-size="24" letter-spacing="5" fill="url(#g)">IZEM</text>
+    <text x="89" y="186" text-anchor="middle" font-family="Georgia, serif" font-size="10" letter-spacing="6" fill="#d6a63a">COCO</text>
+    <text x="89" y="218" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" font-weight="700" fill="#f3ecdc">1 kg</text>
+  </g>
+  <!-- face avant : texte vertical -->
+  <g transform="matrix(1 0.35 0 1 60 92)">
+    <text x="54" y="150" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" letter-spacing="2" fill="#9a9185" transform="rotate(-90 54 150)">CHARBON DE NOIX DE COCO</text>
+  </g>
+</svg>

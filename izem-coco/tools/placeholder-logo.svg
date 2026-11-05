@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="800" height="800">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f4d27a"/>
+      <stop offset=".5" stop-color="#d6a63a"/>
+      <stop offset="1" stop-color="#8a6420"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="400" fill="#000"/>
+  <g fill="none" stroke="url(#g)" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="200" cy="180" r="128" stroke-width="3"/>
+    <circle cx="200" cy="180" r="116" stroke-width="1.2" opacity=".6"/>
+    <!-- crinière -->
+    <path stroke-width="4" d="M200 78c-20 14-46 14-62 34-14 18-8 38-24 54 14 4 18 18 16 32 14-4 24 6 30 18 10-10 24-8 40-2 16-6 30-8 40 2 6-12 16-22 30-18-2-14 2-28 16-32-16-16-10-36-24-54-16-20-42-20-62-34z"/>
+    <!-- visage -->
+    <path stroke-width="4" d="M164 150c8-10 22-14 36-14s28 4 36 14c4 14 2 30-6 44-6 12-18 22-30 26-12-4-24-14-30-26-8-14-10-30-6-44z"/>
+    <path stroke-width="3.5" d="M178 168l12 4M222 168l-12 4"/>
+    <path stroke-width="3.5" d="M200 180v16m-10 4c4 4 16 4 20 0M192 210c4 3 12 3 16 0"/>
+  </g>
+  <text x="200" y="350" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="52" letter-spacing="10" fill="url(#g)">IZEM</text>
+  <text x="200" y="384" text-anchor="middle" font-family="Georgia, serif" font-size="18" letter-spacing="12" fill="#d6a63a">COCO</text>
+</svg>
