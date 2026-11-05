@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Construit izem-coco/index.html à partir de tools/source.html.
+"""Construit index.html (racine du dépôt) à partir de tools/source.html.
 
 - Si assets/logo.jpg et assets/boite.png existent : conversion en WebP
   (largeur max 800 px) puis intégration en base64.
@@ -57,9 +57,10 @@ def main():
     boite, (bw, bh) = image("boite", "placeholder-boite.svg", 80, True)
     html = html.replace("__LOGO__", logo).replace("__BOITE__", boite)
     html = html.replace('width="800" height="__BOITE_H__"', f'width="{bw}" height="{bh}"')
-    sortie = RACINE / "index.html"
+    # Publié par GitHub Pages depuis la racine du dépôt (izem.store)
+    sortie = RACINE.parent / "index.html"
     sortie.write_text(html, encoding="utf-8")
-    print(f"index.html : {len(html.encode())/1024:.1f} Ko")
+    print(f"{sortie} : {len(html.encode())/1024:.1f} Ko")
 
 
 if __name__ == "__main__":
