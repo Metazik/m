@@ -145,7 +145,7 @@ section{padding:72px 0}
 .boite{isolation:isolate}.boite::before{content:"";position:absolute;inset:-8%;background:radial-gradient(closest-side,rgba(214,166,58,.22),rgba(214,166,58,.06) 55%,transparent);z-index:-1;pointer-events:none}
 .boite img{width:100%;height:auto;filter:drop-shadow(0 30px 30px rgba(0,0,0,.6))}
 .fiche{margin:26px 0 0;display:grid;gap:0;border-top:1px solid var(--ligne)}
-.fiche div{display:grid;grid-template-columns:118px 1fr;gap:12px;padding:14px 0;border-bottom:1px solid var(--ligne)}
+.fiche div[hidden]{display:none}.fiche div{display:grid;grid-template-columns:118px 1fr;gap:12px;padding:14px 0;border-bottom:1px solid var(--ligne)}
 .fiche dt{color:var(--or);font-weight:700;font-size:15px}
 .fiche dd{margin:0;color:var(--ivoire)}
 .produit .btn{margin-top:28px}
@@ -316,6 +316,7 @@ footer a{text-decoration:none;font-weight:700}
           <div><dt>Matière</dt><dd>Coques de noix de coco carbonisées</dd></div>
           <div><dt>Composition</dt><dd>100 % coco, liant naturel, sans additif chimique</dd></div>
           <div><dt>Format</dt><dd>Boîte de 1 kg, cubes</dd></div>
+          <div id="fiche-prix" hidden><dt>Prix</dt><dd></dd></div>
           <div><dt>Usages</dt><dd>Chicha, barbecue, encens et bakhour</dd></div>
           <div><dt>Livraison</dt><dd>Partout au Maroc, paiement à la livraison</dd></div>
         </dl>
@@ -512,7 +513,7 @@ footer a{text-decoration:none;font-weight:700}
 
 <script>
 /* ===== Réglages ===== */
-var PRIX_UNITAIRE = "";          // Prix d'une boîte de 1 kg en dirhams, ex. : 120. Laisser vide pour masquer le prix.
+var PRIX_UNITAIRE = 75;          // Prix d'une boîte de 1 kg en dirhams, ex. : 120. Laisser vide pour masquer le prix.
 var WHATSAPP = "212661701744";   // Numéro WhatsApp, format international sans "+"
 
 (function () {
@@ -601,6 +602,8 @@ var WHATSAPP = "212661701744";   // Numéro WhatsApp, format international sans 
   majQ();
 
   if (avecPrix) {
+    var fp = document.getElementById("fiche-prix");
+    fp.hidden = false; fp.querySelector("dd").innerHTML = "<strong style=\"color:var(--or-clair)\">" + dh(prix) + "</strong> la boîte de 1 kg";
     try {
       var ld = document.getElementById("ld-product"), data = JSON.parse(ld.textContent);
       data.offers = { "@type": "Offer", "price": String(prix), "priceCurrency": "MAD", "availability": "https://schema.org/InStock" };
