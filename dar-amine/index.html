@@ -1,0 +1,514 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#1d4ed8">
+<title>Dar Amine Commandes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap">
+<style>
+:root{
+  --bg:#f3f6fc; --surface:#ffffff; --sunk:#eaf0fa; --line:#dbe3f1;
+  --ink:#0f1b33; --muted:#5b6782;
+  --blue:#1d4ed8; --blue-2:#2563eb; --blue-soft:#e3ecff; --blue-ink:#ffffff;
+  --orange:#f2780c; --orange-2:#ff9532; --orange-soft:#fff0e1; --orange-ink:#ffffff; --orange-text:#b65200;
+  --ok:#15803d; --ok-soft:#dcf5e5; --bad:#c62828; --bad-soft:#fde4e4;
+  --bubble:#e7f0ff;
+  --shadow:0 1px 2px rgba(15,27,51,.06),0 6px 20px rgba(29,78,216,.07);
+  --r:16px;
+  --f:"Plus Jakarta Sans",ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0b1222; --surface:#121b30; --sunk:#1a2540; --line:#25324f;
+  --ink:#e8eefb; --muted:#97a3bd;
+  --blue:#3b6ff0; --blue-2:#5b8cff; --blue-soft:#1b2a4d; --blue-ink:#ffffff;
+  --orange:#ff8a24; --orange-2:#ffa54f; --orange-soft:#3a2510; --orange-ink:#1d0f00; --orange-text:#ffb066;
+  --ok:#5fd68a; --ok-soft:#173826; --bad:#ff8a8a; --bad-soft:#3d1a1a;
+  --bubble:#1c2b4f; --shadow:none; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0b1222; --surface:#121b30; --sunk:#1a2540; --line:#25324f;
+  --ink:#e8eefb; --muted:#97a3bd;
+  --blue:#3b6ff0; --blue-2:#5b8cff; --blue-soft:#1b2a4d; --blue-ink:#ffffff;
+  --orange:#ff8a24; --orange-2:#ffa54f; --orange-soft:#3a2510; --orange-ink:#1d0f00; --orange-text:#ffb066;
+  --ok:#5fd68a; --ok-soft:#173826; --bad:#ff8a8a; --bad-soft:#3d1a1a;
+  --bubble:#1c2b4f; --shadow:none; color-scheme:dark}
+
+[hidden]{display:none!important}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f);font-size:15px;line-height:1.45;-webkit-font-smoothing:antialiased}
+.wrap{max-width:640px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+
+/* Header */
+header{position:sticky;top:0;z-index:5;background:linear-gradient(135deg,#1e3a8a 0%,#1d4ed8 55%,#2563eb 100%);color:#fff;padding-top:env(safe-area-inset-top,0px);box-shadow:0 4px 18px rgba(29,78,216,.25)}
+.hrow{display:flex;align-items:center;justify-content:space-between;gap:10px;padding-block:14px 10px}
+.brand{margin:0;font-weight:800;font-size:21px;letter-spacing:-.02em;line-height:1.1;display:flex;align-items:center;gap:10px;min-width:0}
+.logo{flex:none;width:36px;height:36px;border-radius:11px;background:linear-gradient(135deg,#ff9532,#f2780c);display:grid;place-items:center;box-shadow:0 3px 10px rgba(242,120,12,.45)}
+.logo svg{width:20px;height:20px}
+.brand span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.date{position:relative;display:flex;align-items:center;gap:6px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.22);border-radius:999px;padding:6px 12px;font-weight:600;font-size:13px;white-space:nowrap;cursor:pointer}
+.date input{position:absolute;inset:0;opacity:0;width:100%;height:100%;cursor:pointer;border:0;padding:0}
+.date .dot{width:7px;height:7px;border-radius:50%;background:var(--orange-2)}
+.tabs{display:flex;gap:6px;padding-block:0 12px}
+.tab{appearance:none;flex:1;border:0;background:rgba(255,255,255,.12);color:rgba(255,255,255,.88);font:700 14px var(--f);padding:9px 10px;border-radius:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px}
+.tab.icon{flex:0 0 46px}
+.tab svg{width:18px;height:18px}
+.tab[aria-selected="true"]{background:#fff;color:var(--blue)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .tab[aria-selected="true"]{background:var(--surface);color:#fff}}
+:root[data-theme="dark"] .tab[aria-selected="true"]{background:var(--surface);color:#fff}
+
+main{padding-block:16px 64px;display:grid;gap:14px}
+
+/* Cards */
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px;display:grid;gap:12px;min-width:0;box-shadow:var(--shadow)}
+h2{margin:0;font-weight:800;font-size:17px;letter-spacing:-.01em;display:flex;align-items:center;gap:10px}
+h2 .n{flex:none;width:26px;height:26px;border-radius:50%;background:var(--blue-soft);color:var(--blue);display:grid;place-items:center;font-size:13px;font-weight:800}
+h2 .n.done{background:var(--blue);color:#fff}
+h2 .side{margin-left:auto;font-size:13px;font-weight:600;color:var(--muted)}
+.hint{color:var(--muted);font-size:13px;margin:0}
+
+/* Hero */
+.hero{background:linear-gradient(135deg,var(--surface),var(--surface));border:1px solid var(--line);border-radius:var(--r);padding:16px;display:grid;gap:12px;box-shadow:var(--shadow)}
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.kpi{background:var(--sunk);border-radius:12px;padding:10px 12px}
+.kpi b{display:block;font-size:22px;font-weight:800;line-height:1.1;font-variant-numeric:tabular-nums}
+.kpi span{font-size:12px;color:var(--muted);font-weight:600}
+.kpi.o{background:var(--orange-soft)}.kpi.o b{color:var(--orange-text)}
+.kpi.b{background:var(--blue-soft)}.kpi.b b{color:var(--blue)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .kpi.b b{color:var(--blue-2)}}
+:root[data-theme="dark"] .kpi.b b{color:var(--blue-2)}
+.bar{height:8px;border-radius:99px;background:var(--sunk);overflow:hidden}
+.bar i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,var(--orange),var(--orange-2));transition:width .3s}
+
+/* Forms */
+label.f{display:grid;gap:5px;font-size:12px;font-weight:700;color:var(--muted);min-width:0}
+input,select,textarea{font:inherit;font-size:16px;color:var(--ink);background:var(--bg);border:1.5px solid var(--line);border-radius:12px;padding:10px 12px;width:100%;min-width:0}
+textarea{resize:vertical;min-height:90px;font-size:15px}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--blue-2);box-shadow:0 0 0 3px var(--blue-soft)}
+.btn:focus-visible,.tab:focus-visible,summary:focus-visible{outline:3px solid var(--orange-2);outline-offset:2px}
+
+/* Buttons */
+.btn{appearance:none;display:inline-flex;align-items:center;justify-content:center;gap:7px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);font:700 14px var(--f);padding:9px 14px;border-radius:12px;cursor:pointer;text-decoration:none;white-space:nowrap;min-height:42px;transition:transform .08s,filter .15s}
+.btn:active{transform:scale(.97)}
+.btn svg{width:17px;height:17px;flex:none}
+.btn.blue{background:var(--blue);border-color:var(--blue);color:var(--blue-ink)}
+.btn.wa{background:var(--orange);border-color:var(--orange);color:var(--orange-ink)}
+.btn.wa:hover,.btn.blue:hover{filter:brightness(1.06)}
+.btn.soft{background:var(--blue-soft);border-color:transparent;color:var(--blue)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .btn.soft{color:#cfe0ff}}
+:root[data-theme="dark"] .btn.soft{color:#cfe0ff}
+.btn.ghost{border-color:transparent;background:transparent;color:var(--muted)}
+.btn.danger{color:var(--bad)}
+.btn.sm{font-size:13px;padding:6px 11px;min-height:36px;border-radius:10px}
+.btn.big{min-height:54px;font-size:16px;border-radius:14px;width:100%}
+.btn.ico{width:36px;padding:0}
+.btn[aria-disabled="true"]{opacity:.4;pointer-events:none}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.grow{flex:1 1 160px;min-width:0}
+
+/* Menu */
+.dish{display:grid;grid-template-columns:26px 1fr 78px 32px;gap:6px;align-items:center}
+.dish .num{width:28px;height:28px;border-radius:9px;background:var(--orange-soft);color:var(--orange-text);display:grid;place-items:center;font-weight:800;font-size:13px}
+.price{position:relative}
+.price input{padding-right:34px;text-align:right;font-variant-numeric:tabular-nums}
+.price::after{content:"DH";position:absolute;right:11px;top:50%;transform:translateY(-50%);font-size:11px;color:var(--muted);font-weight:700}
+
+/* Lists */
+.list{display:grid;gap:8px}
+.item{display:flex;gap:10px;align-items:center;flex-wrap:wrap;padding:10px 12px;border-radius:14px;background:var(--bg);border:1px solid var(--line)}
+.av{flex:none;width:38px;height:38px;border-radius:50%;background:var(--blue-soft);color:var(--blue);display:grid;place-items:center;font-weight:800;font-size:15px}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .av{color:#cfe0ff}}
+:root[data-theme="dark"] .av{color:#cfe0ff}
+.av.sent{background:var(--blue);color:#fff}
+.item .who{min-width:0;flex:1 1 120px}
+.item .who b{display:block;font-weight:700;overflow-wrap:anywhere}
+.item .who span{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.item .acts{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-left:auto}
+.item.is-annule .who b{text-decoration:line-through;color:var(--muted)}
+.pill{display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:700;padding:3px 9px;border-radius:999px;white-space:nowrap}
+.p-attente{background:var(--orange-soft);color:var(--orange-text)}
+.p-confirme{background:var(--blue-soft);color:var(--blue)}
+.p-servi{background:var(--ok-soft);color:var(--ok)}
+.p-annule{background:var(--bad-soft);color:var(--bad)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .p-confirme{color:#cfe0ff}}
+:root[data-theme="dark"] .p-confirme{color:#cfe0ff}
+
+/* WhatsApp bubble preview */
+details.msg summary{cursor:pointer;list-style:none;font-size:13px;font-weight:700;color:var(--blue);display:inline-flex;align-items:center;gap:6px}
+details.msg summary::-webkit-details-marker{display:none}
+details.msg summary::before{content:"›";display:inline-block;transition:transform .15s;font-size:16px}
+details.msg[open] summary::before{transform:rotate(90deg)}
+.bubble{margin-top:10px;white-space:pre-wrap;background:var(--bubble);color:var(--ink);border-radius:16px 16px 16px 4px;padding:11px 13px;font-size:14px;max-width:440px;overflow-wrap:anywhere;position:relative}
+
+/* Next to send */
+.next{display:grid;gap:10px;background:linear-gradient(135deg,var(--orange-soft),var(--blue-soft));border-radius:14px;padding:14px}
+.next .who{display:flex;align-items:center;gap:10px}
+.next .who b{display:block;font-size:16px}
+.next .who span{font-size:13px;color:var(--muted)}
+.alldone{display:flex;align-items:center;gap:10px;background:var(--blue-soft);border-radius:14px;padding:12px 14px;font-weight:700;color:var(--blue)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .alldone{color:#cfe0ff}}
+:root[data-theme="dark"] .alldone{color:#cfe0ff}
+
+/* Order form */
+.ofrm{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.ofrm .full{grid-column:1/-1}
+.qty{display:flex;align-items:center;gap:6px}
+.qty input{text-align:center;font-weight:800;padding-inline:4px}
+.qty .btn{flex:none;width:42px;padding:0}
+@media (max-width:420px){.ofrm{grid-template-columns:1fr}}
+
+table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+th,td{text-align:left;padding:9px 6px;border-bottom:1px solid var(--line);font-size:14px}
+th{font-size:11px;color:var(--muted);font-weight:700;letter-spacing:.05em;text-transform:uppercase}
+td.num,th.num{text-align:right}
+td.num b{color:var(--blue)}
+tfoot td{font-weight:800;border-bottom:0}
+.total{display:flex;justify-content:space-between;align-items:center;background:var(--orange-soft);color:var(--orange-text);border-radius:12px;padding:10px 14px;font-weight:700}
+.total b{font-size:18px;font-weight:800}
+
+.banner{background:var(--orange-soft);border:1px solid var(--orange);border-radius:var(--r);padding:12px 14px;display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.banner p{margin:0;font-size:14px;flex:1 1 200px}
+.empty{padding:18px 12px;text-align:center;color:var(--muted);font-size:14px;background:var(--bg);border-radius:14px;border:1.5px dashed var(--line)}
+details.more summary{cursor:pointer;font-size:13px;font-weight:700;color:var(--blue)}
+.toast{position:fixed;left:50%;bottom:calc(18px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:999px;font-size:14px;font-weight:700;z-index:20;max-width:calc(100% - 32px);box-shadow:0 8px 24px rgba(0,0,0,.2)}
+.overlay{position:fixed;inset:0;background:rgba(5,12,30,.55);z-index:30;display:grid;place-items:center;padding:16px}
+.overlay .box{background:var(--surface);border-radius:var(--r);padding:16px;width:min(520px,100%);display:grid;gap:10px}
+.legend code{background:var(--sunk);padding:1px 6px;border-radius:5px;font-size:12px}
+.chk{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:var(--muted);cursor:pointer}
+.chk input{width:20px;height:20px;accent-color:var(--orange)}
+@media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="hrow">
+      <h1 class="brand"><span class="logo" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11h16a8 8 0 0 1-16 0Z"/><path d="M12 3v3M8.5 4.5l1 2M15.5 4.5l-1 2"/></svg></span><span id="restoName">Dar Amine</span></h1>
+      <label class="date" title="Changer de jour"><span class="dot"></span><span id="dateLbl">Aujourd'hui</span><input type="date" id="day" aria-label="Jour affiché"></label>
+    </div>
+    <nav class="tabs" role="tablist">
+      <button class="tab" role="tab" data-tab="jour" aria-selected="true" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-12.3 7.5L3 21l2-5.5A8.4 8.4 0 1 1 21 11.5Z"/></svg>Le jour</button>
+      <button class="tab" role="tab" data-tab="clients" aria-selected="false" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0M16 4.6a3.5 3.5 0 0 1 0 6.8M21.5 20a6.5 6.5 0 0 0-4-6"/></svg>Clients</button>
+      <button class="tab icon" role="tab" data-tab="reglages" aria-selected="false" type="button" aria-label="Réglages"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1Z"/></svg></button>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap" id="main"></main>
+<div class="toast" id="toast" hidden></div>
+<div class="overlay" id="copyOverlay" hidden>
+  <div class="box">
+    <h2>Copier le texte</h2>
+    <p class="hint">La copie automatique est bloquée ici. Le texte est sélectionné : faites Copier.</p>
+    <textarea id="copyArea" rows="8"></textarea>
+    <div class="row"><button class="btn" type="button" id="copyClose">Fermer</button></div>
+  </div>
+</div>
+
+<script>
+(function(){
+"use strict";
+var KEY="darAmine.menu.v1";
+var TPL={
+  menu:"Salam {nom} 👋\nVoici le menu du jour de {resto} ({date}) :\n\n{menu}\n\nPour commander, répondez avec le numéro du plat (ex : 2, ou 2x2 pour deux portions).\nPour annuler, répondez ANNULER.\nPour ne plus recevoir le menu, répondez STOP.",
+  confirme:"C'est noté {nom} ✅\nVotre commande : {commande}.\nÀ tout à l'heure chez {resto} !",
+  annule:"Bien reçu {nom}, votre commande ({commande}) est annulée.\nÀ bientôt chez {resto} !"
+};
+var STAT={attente:"À confirmer",confirme:"Confirmée",annule:"Annulée",servi:"Servie"};
+var IC={
+  wa:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-12.3 7.5L3 21l2-5.5A8.4 8.4 0 1 1 21 11.5Z"/></svg>',
+  check:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>',
+  x:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>',
+  plus:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>',
+  copy:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h8"/></svg>',
+  chef:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 14a4 4 0 1 1 1.5-7.7A5 5 0 0 1 16.5 6.3 4 4 0 1 1 18 14v6H6Z"/><path d="M6 17h12"/></svg>'
+};
+
+function pad(n){return String(n).padStart(2,"0")}
+function today(){var d=new Date();return d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate())}
+function uid(){return Math.random().toString(36).slice(2,8)+Date.now().toString(36).slice(-4)}
+function esc(s){return String(s==null?"":s).replace(/[&<>"']/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})}
+function dateFr(d){var p=d.split("-").map(Number);return new Date(p[0],p[1]-1,p[2]).toLocaleDateString("fr-FR",{weekday:"long",day:"numeric",month:"long"})}
+function dateCourt(d){if(d===today())return"Aujourd'hui";var p=d.split("-").map(Number);return new Date(p[0],p[1]-1,p[2]).toLocaleDateString("fr-FR",{weekday:"short",day:"numeric",month:"short"})}
+function normTel(raw){var d=String(raw||"").replace(/\D/g,"");if(d.indexOf("00")===0)d=d.slice(2);if(d.length===10&&d[0]==="0")d="212"+d.slice(1);else if(d.length===9&&/[5-7]/.test(d[0]))d="212"+d;return d}
+function telOk(t){return t&&t.length>=10&&t.length<=15}
+function telAff(t){if(!t)return"pas de numéro";if(t.indexOf("212")===0&&t.length===12)return"0"+t.slice(3,4)+" "+t.slice(4,6)+" "+t.slice(6,8)+" "+t.slice(8,10)+" "+t.slice(10,12);return"+"+t}
+function prenom(c){return (c.nom||"").replace(/\(exemple\)/i,"").trim().split(/\s+/)[0]||""}
+function initiale(c){return (prenom(c)[0]||"?").toUpperCase()}
+function fill(t,v){return String(t).replace(/\{(\w+)\}/g,function(m,k){return Object.prototype.hasOwnProperty.call(v,k)?v[k]:m})}
+function wa(tel,text){return"https://wa.me/"+tel+"?text="+encodeURIComponent(text)}
+
+function exemple(){
+  var t=today();
+  var o={v:1,exemple:true,resto:{nom:"Dar Amine",cuisine:""},tpl:Object.assign({},TPL),
+    clients:[
+      {id:"ex1",nom:"Youssef (exemple)",tel:"212600000001",abonne:true},
+      {id:"ex2",nom:"Salma (exemple)",tel:"212600000002",abonne:true},
+      {id:"ex3",nom:"Karim (exemple)",tel:"212600000003",abonne:true},
+      {id:"ex4",nom:"Nadia (exemple)",tel:"212600000004",abonne:false}
+    ],menus:{},commandes:[
+      {id:"o1",date:t,clientId:"ex1",plat:"Tajine de poulet aux citrons confits",qte:2,note:"",statut:"confirme",t:1},
+      {id:"o2",date:t,clientId:"ex2",plat:"Couscous aux sept légumes",qte:1,note:"sans piment",statut:"attente",t:2}
+    ]};
+  o.menus[t]={plats:[{nom:"Tajine de poulet aux citrons confits",prix:"45"},{nom:"Couscous aux sept légumes",prix:"50"},{nom:"Harira et dattes",prix:"15"}],envoyes:{ex1:true}};
+  return o;
+}
+var storeOk=true;
+function load(){try{var r=localStorage.getItem(KEY);if(r){var o=JSON.parse(r);if(o&&o.clients)return fix(o)}}catch(e){storeOk=false}return exemple()}
+function fix(o){o.tpl=Object.assign({},TPL,o.tpl||{});o.resto=o.resto||{nom:"Dar Amine",cuisine:""};o.menus=o.menus||{};o.commandes=o.commandes||[];return o}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S));storeOk=true}catch(e){storeOk=false}}
+
+var S=load(), D=today(), TAB="jour", pendingDel=null, editClient=null, preClient="";
+var main=document.getElementById("main");
+
+function menuOf(d){if(!S.menus[d])S.menus[d]={plats:[],envoyes:{}};var m=S.menus[d];m.plats=m.plats||[];m.envoyes=m.envoyes||{};return m}
+function plats(d){return menuOf(d).plats.filter(function(p){return p.nom&&p.nom.trim()})}
+function client(id){for(var i=0;i<S.clients.length;i++)if(S.clients[i].id===id)return S.clients[i];return null}
+function menuTxt(d){return plats(d).map(function(p,i){return(i+1)+". "+p.nom.trim()+(p.prix?" – "+p.prix+" DH":"")}).join("\n")}
+function vars(c,d,extra){return Object.assign({nom:c?prenom(c):"",resto:S.resto.nom||"",date:dateFr(d),menu:menuTxt(d)},extra||{})}
+function cmdTxt(o){return o.qte+" × "+o.plat+(o.note?" ("+o.note+")":"")}
+function abonnes(){return S.clients.filter(function(c){return c.abonne})}
+function cmdsOf(d){return S.commandes.filter(function(o){return o.date===d})}
+function waBtn(cls,tel,text,label,attrs){var ok=telOk(tel);return'<a class="btn '+cls+'" target="_blank" rel="noopener" '+(ok?'href="'+esc(wa(tel,text))+'"':'aria-disabled="true"')+' '+(attrs||"")+'>'+IC.wa+label+'</a>'}
+
+/* ---------- toast + copy ---------- */
+var tt;function toast(m){var e=document.getElementById("toast");e.textContent=m;e.hidden=false;clearTimeout(tt);tt=setTimeout(function(){e.hidden=true},2200)}
+function copy(text){
+  try{navigator.clipboard.writeText(text).then(function(){toast("Texte copié")},function(){copyBox(text)})}catch(e){copyBox(text)}
+}
+function copyBox(text){var o=document.getElementById("copyOverlay"),a=document.getElementById("copyArea");a.value=text;o.hidden=false;a.focus();a.select()}
+document.getElementById("copyClose").onclick=function(){document.getElementById("copyOverlay").hidden=true};
+
+/* ---------- render ---------- */
+function render(){
+  document.getElementById("restoName").textContent=S.resto.nom||"Mon restaurant";
+  document.getElementById("day").value=D;
+  document.getElementById("dateLbl").textContent=dateCourt(D);
+  document.querySelectorAll(".tab").forEach(function(b){b.setAttribute("aria-selected",String(b.dataset.tab===TAB))});
+  var h="";
+  if(S.exemple)h+='<div class="banner"><p><b>Exemple.</b> Ces clients et commandes sont fictifs, pour vous montrer.</p><button class="btn wa sm" data-act="clearEx" type="button">Commencer avec mes clients</button></div>';
+  if(!storeOk)h+='<div class="banner"><p>La sauvegarde automatique ne marche pas dans ce navigateur. Copiez la sauvegarde dans Réglages.</p></div>';
+  if(TAB==="jour")h+=vJour();else if(TAB==="clients")h+=vClients();else h+=vReglages();
+  main.innerHTML=h;
+}
+
+function vJour(){
+  var cs=cmdsOf(D),ab=abonnes(),m=menuOf(D),sent=ab.filter(function(c){return m.envoyes[c.id]}).length;
+  var n=function(s){return cs.filter(function(o){return o.statut===s}).length};
+  var pct=ab.length?Math.round(sent/ab.length*100):0;
+  var h='<div class="hero"><div class="kpis">'+
+    '<div class="kpi b"><b>'+sent+'<small style="font-size:14px;color:var(--muted)"> / '+ab.length+'</small></b><span>Menus envoyés</span></div>'+
+    '<div class="kpi o"><b>'+n("attente")+'</b><span>À confirmer</span></div>'+
+    '<div class="kpi"><b>'+(n("confirme")+n("servi"))+'</b><span>Confirmées</span></div></div>'+
+    '<div class="bar" aria-hidden="true"><i style="width:'+pct+'%"></i></div></div>';
+  h+='<div id="secMenu">'+vMenu()+'</div><div id="secEnvoi">'+vEnvoi()+'</div><div id="secCmd">'+vCmd()+'</div><div id="secRecap">'+vRecap()+'</div>';
+  return h;
+}
+
+function vMenu(){
+  var m=menuOf(D),has=plats(D).length;
+  var rows=m.plats.map(function(p,i){return'<div class="dish"><span class="num">'+(i+1)+'</span>'+
+    '<input data-dish="'+i+'" data-f="nom" value="'+esc(p.nom)+'" placeholder="Nom du plat" aria-label="Plat '+(i+1)+'">'+
+    '<span class="price"><input data-dish="'+i+'" data-f="prix" value="'+esc(p.prix)+'" inputmode="decimal" placeholder="Prix" aria-label="Prix du plat '+(i+1)+'"></span>'+
+    '<button class="btn sm ghost ico" data-act="delDish" data-i="'+i+'" type="button" aria-label="Retirer ce plat">'+IC.x+'</button></div>'}).join("");
+  var prev=prevDay();
+  return'<section class="card"><h2><span class="n'+(has?' done':'')+'">1</span>Le menu</h2>'+
+    (rows||'<p class="hint">Aucun plat pour ce jour.</p>')+
+    '<div class="row"><button class="btn soft" data-act="addDish" type="button">'+IC.plus+'Ajouter un plat</button>'+
+    (prev&&!has?'<button class="btn ghost" data-act="copyPrev" data-d="'+prev+'" type="button">Reprendre celui du '+esc(dateCourt(prev))+'</button>':'')+'</div></section>';
+}
+function prevDay(){var ks=Object.keys(S.menus).filter(function(k){return k<D&&S.menus[k].plats&&S.menus[k].plats.some(function(p){return p.nom})}).sort();return ks.length?ks[ks.length-1]:null}
+
+function vEnvoi(){
+  var m=menuOf(D),ab=abonnes(),ps=plats(D);
+  var sent=ab.filter(function(c){return m.envoyes[c.id]}).length;
+  var head='<h2><span class="n'+(ab.length&&sent===ab.length?' done':'')+'">2</span>Envoyer sur WhatsApp'+(ab.length?'<span class="side">'+sent+' / '+ab.length+'</span>':'')+'</h2>';
+  if(!ps.length)return'<section class="card">'+head+'<p class="hint">Écrivez d\'abord au moins un plat.</p></section>';
+  var nextC=null;for(var i=0;i<ab.length;i++){if(!m.envoyes[ab[i].id]&&telOk(ab[i].tel)){nextC=ab[i];break}}
+  var sample=nextC||ab[0]||{nom:"Client"};
+  var h='<section class="card">'+head;
+  if(nextC)h+='<div class="next"><div class="who"><span class="av">'+esc(initiale(nextC))+'</span><div><b>'+esc(nextC.nom)+'</b><span>'+telAff(nextC.tel)+'</span></div></div>'+
+    waBtn("wa big",nextC.tel,fill(S.tpl.menu,vars(nextC,D)),"Envoyer à "+esc(prenom(nextC)||"ce client"),'data-act="send" data-id="'+nextC.id+'"')+
+    '<p class="hint" style="text-align:center">WhatsApp s\'ouvre avec le message prêt. Appuyez sur Envoyer, puis revenez ici.</p></div>';
+  else if(ab.length)h+='<div class="alldone">'+IC.check+' Tout le monde a reçu le menu.</div>';
+  h+='<details class="msg"><summary>Voir le message</summary><div class="bubble">'+esc(fill(S.tpl.menu,vars(sample,D)))+'</div></details>';
+  if(!ab.length)h+='<div class="empty">Aucun client. <button class="btn sm soft" data-act="goClients" type="button">Ajouter des clients</button></div>';
+  else h+='<details class="more"'+(ab.length<=6?' open':'')+'><summary>Tous les clients ('+ab.length+')</summary><div class="list" style="margin-top:10px">'+ab.map(function(c){var s=!!m.envoyes[c.id];
+    return'<div class="item"><span class="av'+(s?' sent':'')+'">'+(s?IC.check.replace('<svg','<svg width="18" height="18"'):esc(initiale(c)))+'</span><div class="who"><b>'+esc(c.nom)+'</b><span>'+(s?'Menu envoyé':telAff(c.tel))+'</span></div><div class="acts">'+
+      waBtn("sm "+(s?"":"wa"),c.tel,fill(S.tpl.menu,vars(c,D)),s?"Renvoyer":"Envoyer",'data-act="send" data-id="'+c.id+'"')+
+      '<button class="btn sm soft ico" data-act="newFor" data-id="'+c.id+'" type="button" aria-label="Noter une commande de '+esc(c.nom)+'" title="Noter une commande">'+IC.plus+'</button></div></div>'}).join("")+'</div></details>';
+  h+='<div class="row"><button class="btn sm ghost" data-act="copyMenu" type="button">'+IC.copy+'Copier le menu (statut)</button>'+
+    (Object.keys(m.envoyes).length?'<button class="btn sm ghost" data-act="resetSent" type="button">Remettre à zéro</button>':'')+'</div></section>';
+  return h;
+}
+
+function vCmd(){
+  var ps=plats(D),cs=cmdsOf(D).slice(),ord={attente:0,confirme:1,servi:2,annule:3};
+  cs.sort(function(a,b){return(ord[a.statut]-ord[b.statut])||(a.t-b.t)});
+  var cl=S.clients.slice().sort(function(a,b){return(b.abonne-a.abonne)||a.nom.localeCompare(b.nom)});
+  var h='<section class="card"><h2><span class="n'+(cs.length?' done':'')+'">3</span>Les commandes'+(cs.length?'<span class="side">'+cs.length+'</span>':'')+'</h2>'+
+    '<p class="hint">Un client répond sur WhatsApp ? Notez sa commande, puis confirmez-la : la réponse part sur WhatsApp.</p>';
+  if(!S.clients.length)h+='<div class="empty">Ajoutez d\'abord vos clients.</div>';
+  else if(!ps.length)h+='<div class="empty">Écrivez d\'abord le menu du jour.</div>';
+  else h+='<form class="ofrm" id="ofrm">'+
+    '<label class="f">Client<select id="oc" required>'+cl.map(function(c){return'<option value="'+c.id+'"'+(c.id===preClient?' selected':'')+'>'+esc(c.nom)+'</option>'}).join("")+'</select></label>'+
+    '<label class="f">Plat<select id="op">'+ps.map(function(p,i){return'<option value="'+esc(p.nom)+'">'+(i+1)+'. '+esc(p.nom)+'</option>'}).join("")+'</select></label>'+
+    '<label class="f">Quantité<span class="qty"><button class="btn soft" type="button" data-act="qm" aria-label="Moins">−</button><input id="oq" type="number" min="1" value="1" inputmode="numeric"><button class="btn soft" type="button" data-act="qp" aria-label="Plus">+</button></span></label>'+
+    '<label class="f">Remarque<input id="on" placeholder="sans piment, 13 h…"></label>'+
+    '<button class="btn blue full" type="submit">'+IC.plus+'Noter la commande</button></form>';
+  if(cs.length)h+='<div class="list">'+cs.map(function(o){var c=client(o.clientId)||{nom:"Client supprimé",tel:""},v=vars(c,D,{commande:cmdTxt(o)});
+    var a='';
+    if(o.statut==="attente")a+=waBtn("sm wa",c.tel,fill(S.tpl.confirme,v),"Confirmer",'data-act="st" data-st="confirme" data-id="'+o.id+'"');
+    if(o.statut==="confirme")a+='<button class="btn sm soft" data-act="st" data-st="servi" data-id="'+o.id+'" type="button">'+IC.check+'Servie</button>';
+    if(o.statut==="annule"||o.statut==="servi")a+='<button class="btn sm ghost" data-act="st" data-st="'+(o.statut==="servi"?"confirme":"attente")+'" data-id="'+o.id+'" type="button">Rétablir</button>';
+    if(o.statut==="attente"||o.statut==="confirme")a+=waBtn("sm ghost danger",c.tel,fill(S.tpl.annule,v),"Annuler",'data-act="st" data-st="annule" data-id="'+o.id+'"');
+    a+='<button class="btn sm ghost danger'+(pendingDel===o.id?'':' ico')+'" data-act="delCmd" data-id="'+o.id+'" type="button" aria-label="Supprimer">'+(pendingDel===o.id?'Supprimer ?':IC.x)+'</button>';
+    return'<div class="item is-'+o.statut+'"><span class="av">'+esc(initiale(c))+'</span><div class="who"><b>'+esc(c.nom)+' <span class="pill p-'+o.statut+'">'+STAT[o.statut]+'</span></b><span>'+esc(cmdTxt(o))+'</span></div><div class="acts">'+a+'</div></div>'}).join("")+'</div>';
+  else if(S.clients.length&&ps.length)h+='<div class="empty">Pas encore de commande.</div>';
+  return h+'</section>';
+}
+
+function recapData(){
+  var ps=plats(D),map={},order=[];
+  ps.forEach(function(p){map[p.nom]={nom:p.nom,prix:parseFloat(String(p.prix).replace(",","."))||0,conf:0,att:0};order.push(p.nom)});
+  cmdsOf(D).forEach(function(o){if(o.statut==="annule")return;if(!map[o.plat]){map[o.plat]={nom:o.plat,prix:0,conf:0,att:0};order.push(o.plat)}
+    if(o.statut==="attente")map[o.plat].att+=o.qte;else map[o.plat].conf+=o.qte});
+  return order.map(function(k){return map[k]});
+}
+function recapTxt(){
+  var r=recapData(),lines=r.filter(function(x){return x.conf+x.att}).map(function(x){return"• "+x.nom+" : "+x.conf+(x.att?" (+"+x.att+" à confirmer)":"")});
+  var notes=cmdsOf(D).filter(function(o){return o.note&&o.statut!=="annule"}).map(function(o){var c=client(o.clientId);return"– "+(c?prenom(c):"?")+" : "+o.plat+", "+o.note});
+  return"Récap cuisine "+(S.resto.nom||"")+" – "+dateFr(D)+"\n\n"+(lines.join("\n")||"Aucune commande")+(notes.length?"\n\nRemarques :\n"+notes.join("\n"):"");
+}
+function vRecap(){
+  var r=recapData();if(!r.length)return"";
+  var tc=0,ta=0,ca=0;r.forEach(function(x){tc+=x.conf;ta+=x.att;ca+=x.conf*x.prix});
+  if(!tc&&!ta)return"";
+  var cu=normTel(S.resto.cuisine);
+  return'<section class="card"><h2><span class="n done">4</span>Pour la cuisine</h2>'+
+    '<div style="overflow-x:auto"><table><thead><tr><th>Plat</th><th class="num">Confirmées</th><th class="num">En attente</th></tr></thead><tbody>'+
+    r.map(function(x){return'<tr><td>'+esc(x.nom)+'</td><td class="num"><b>'+x.conf+'</b></td><td class="num">'+(x.att||"–")+'</td></tr>'}).join("")+
+    '</tbody><tfoot><tr><td>Total portions</td><td class="num">'+tc+'</td><td class="num">'+(ta||"–")+'</td></tr></tfoot></table></div>'+
+    (ca?'<div class="total"><span>Chiffre prévu</span><b>'+ca.toLocaleString("fr-FR")+' DH</b></div>':'')+
+    '<div class="row">'+(telOk(cu)?waBtn("wa grow",cu,recapTxt(),"Envoyer à la cuisine"):'')+
+    '<button class="btn'+(telOk(cu)?'':' grow')+'" data-act="copyRecap" type="button">'+IC.copy+'Copier</button></div>'+
+    (telOk(cu)?'':'<p class="hint">Mettez le WhatsApp de la cuisine dans Réglages pour l\'envoyer en un clic.</p>')+'</section>';
+}
+
+function vClients(){
+  var ec=editClient?client(editClient):null;
+  var h='<section class="card"><h2>'+(ec?'Modifier '+esc(ec.nom):'Nouveau client')+'</h2>'+
+    '<form class="row" id="cfrm"><label class="f grow">Nom<input id="cn" required value="'+esc(ec?ec.nom:"")+'" placeholder="Youssef B."></label>'+
+    '<label class="f grow">WhatsApp<input id="ct" required inputmode="tel" value="'+esc(ec?telAff(ec.tel):"")+'" placeholder="06 12 34 56 78"></label>'+
+    '<div class="row" style="align-self:end;width:100%"><button class="btn blue grow" type="submit">'+(ec?'Enregistrer':IC.plus+'Ajouter')+'</button>'+(ec?'<button class="btn ghost" data-act="cancelEdit" type="button">Annuler</button>':'')+'</div></form>'+
+    '<details class="more"><summary>Ajouter plusieurs clients d\'un coup</summary><div style="display:grid;gap:8px;margin-top:10px">'+
+    '<p class="hint">Une ligne par client : nom, puis numéro. Ex : <i>Youssef, 0612345678</i></p>'+
+    '<textarea id="bulk" rows="5" placeholder="Youssef, 0612345678&#10;Salma, 0698765432"></textarea><div><button class="btn soft" data-act="bulk" type="button">Importer</button></div></div></details></section>';
+  var cs=S.clients.slice().sort(function(a,b){return a.nom.localeCompare(b.nom)});
+  h+='<section class="card"><h2>Mes clients<span class="side">'+abonnes().length+' / '+S.clients.length+' reçoivent le menu</span></h2>';
+  if(cs.length>5)h+='<input id="csearch" placeholder="Chercher un nom ou un numéro" aria-label="Chercher un client">';
+  if(!cs.length)h+='<div class="empty">Aucun client pour l\'instant.</div>';
+  else h+='<div class="list" id="clist">'+cs.map(function(c){var nb=S.commandes.filter(function(o){return o.clientId===c.id&&o.statut!=="annule"}).length;
+    return'<div class="item" data-s="'+esc((c.nom+" "+c.tel+" "+telAff(c.tel)).toLowerCase())+'"><span class="av">'+esc(initiale(c))+'</span><div class="who"><b>'+esc(c.nom)+'</b><span>'+telAff(c.tel)+(telOk(c.tel)?'':' · à corriger')+' · '+nb+' cmd</span></div><div class="acts">'+
+      '<label class="chk"><input type="checkbox" data-act="abo" data-id="'+c.id+'"'+(c.abonne?' checked':'')+'> Menu</label>'+
+      '<button class="btn sm ghost" data-act="edit" data-id="'+c.id+'" type="button">Modifier</button>'+
+      '<button class="btn sm ghost danger'+(pendingDel===c.id?'':' ico')+'" data-act="delCli" data-id="'+c.id+'" type="button" aria-label="Supprimer">'+(pendingDel===c.id?'Supprimer ?':IC.x)+'</button></div></div>'}).join("")+'</div>';
+  return h+'<p class="hint">Un client répond STOP ? Décochez « Menu ».</p></section>';
+}
+
+function vReglages(){
+  return'<section class="card"><h2>Restaurant</h2>'+
+    '<label class="f">Nom dans les messages<input data-set="nom" value="'+esc(S.resto.nom)+'"></label>'+
+    '<label class="f">WhatsApp de la cuisine (pour le récap)<input data-set="cuisine" inputmode="tel" value="'+esc(S.resto.cuisine)+'" placeholder="06 ..."></label></section>'+
+    '<section class="card"><h2>Messages WhatsApp</h2><p class="hint legend">Remplacés tout seuls : <code>{nom}</code> <code>{resto}</code> <code>{date}</code> <code>{menu}</code> <code>{commande}</code></p>'+
+    '<label class="f">Menu du jour<textarea data-tpl="menu" rows="8">'+esc(S.tpl.menu)+'</textarea></label>'+
+    '<label class="f">Confirmation<textarea data-tpl="confirme" rows="3">'+esc(S.tpl.confirme)+'</textarea></label>'+
+    '<label class="f">Annulation<textarea data-tpl="annule" rows="3">'+esc(S.tpl.annule)+'</textarea></label>'+
+    '<div><button class="btn sm ghost" data-act="resetTpl" type="button">Remettre les messages d\'origine</button></div></section>'+
+    '<section class="card"><h2>Sauvegarde</h2><p class="hint">Les données restent sur ce téléphone. Copiez la sauvegarde de temps en temps (envoyez-la-vous sur WhatsApp).</p>'+
+    '<div class="row"><button class="btn soft" data-act="exportCopy" type="button">'+IC.copy+'Copier la sauvegarde</button><button class="btn" data-act="exportFile" type="button">Télécharger</button></div>'+
+    '<details class="more"><summary>Restaurer une sauvegarde</summary><div style="display:grid;gap:8px;margin-top:10px">'+
+    '<textarea id="imp" rows="3" placeholder="Collez la sauvegarde ici"></textarea>'+
+    '<div class="row"><input type="file" id="impFile" accept=".json,application/json,text/plain" style="width:auto;flex:1"><button class="btn blue" data-act="import" type="button">Restaurer</button></div></div></details></section>'+
+    '<section class="card"><h2>Tout effacer</h2><p class="hint">Supprime clients, menus et commandes de cet appareil.</p><div><button class="btn danger" data-act="wipe" type="button">'+(pendingDel==="wipe"?'Confirmer : tout effacer':'Tout effacer')+'</button></div></section>';
+}
+
+/* ---------- events ---------- */
+document.querySelectorAll(".tab").forEach(function(b){b.onclick=function(){TAB=b.dataset.tab;pendingDel=null;editClient=null;render();window.scrollTo(0,0)}});
+document.getElementById("day").onchange=function(e){if(e.target.value){D=e.target.value;preClient="";render()}};
+
+function sec(id,fn){var el=document.getElementById(id);if(el)el.innerHTML=fn()}
+function refreshJour(){if(TAB!=="jour")return;var y=window.scrollY;render();window.scrollTo(0,y)}
+
+main.addEventListener("input",function(e){
+  var t=e.target;
+  if(t.dataset.dish!=null){menuOf(D).plats[+t.dataset.dish][t.dataset.f]=t.value;save();sec("secEnvoi",vEnvoi);sec("secCmd",vCmd);sec("secRecap",vRecap)}
+  else if(t.dataset.set){S.resto[t.dataset.set]=t.value;save();document.getElementById("restoName").textContent=S.resto.nom||"Mon restaurant"}
+  else if(t.dataset.tpl){S.tpl[t.dataset.tpl]=t.value;save()}
+  else if(t.id==="csearch"){var q=t.value.toLowerCase().trim();document.querySelectorAll("#clist .item").forEach(function(it){it.hidden=q&&it.dataset.s.indexOf(q)<0})}
+});
+main.addEventListener("change",function(e){
+  var t=e.target;
+  if(t.dataset.act==="abo"){var c=client(t.dataset.id);if(c){c.abonne=t.checked;save();toast(t.checked?"Recevra le menu":"Ne recevra plus le menu")}}
+  if(t.id==="impFile"&&t.files[0]){var fr=new FileReader();fr.onload=function(){document.getElementById("imp").value=fr.result};fr.readAsText(t.files[0])}
+});
+main.addEventListener("submit",function(e){
+  e.preventDefault();
+  if(e.target.id==="ofrm"){
+    var o={id:uid(),date:D,clientId:document.getElementById("oc").value,plat:document.getElementById("op").value,qte:Math.max(1,parseInt(document.getElementById("oq").value,10)||1),note:document.getElementById("on").value.trim(),statut:"attente",t:Date.now()};
+    S.commandes.push(o);preClient="";save();refreshJour();toast("Commande notée, à confirmer");
+  }
+  if(e.target.id==="cfrm"){
+    var nom=document.getElementById("cn").value.trim(),tel=normTel(document.getElementById("ct").value);
+    if(!nom)return;
+    if(!telOk(tel)){toast("Numéro incomplet : ex. 06 12 34 56 78");return}
+    var dup=S.clients.filter(function(c){return c.tel===tel&&c.id!==editClient})[0];
+    if(dup){toast("Ce numéro existe déjà : "+dup.nom);return}
+    if(editClient){var c=client(editClient);c.nom=nom;c.tel=tel;editClient=null;toast("Client modifié")}
+    else{S.clients.push({id:uid(),nom:nom,tel:tel,abonne:true});toast(nom+" ajouté")}
+    save();render();var f=document.getElementById("cn");if(f)f.focus();
+  }
+});
+main.addEventListener("click",function(e){
+  var b=e.target.closest("[data-act]");if(!b||b.tagName==="INPUT")return;
+  var a=b.dataset.act,id=b.dataset.id;
+  if(a!=="delCmd"&&a!=="delCli"&&a!=="wipe")pendingDel=null;
+  switch(a){
+    case"send":if(b.getAttribute("aria-disabled")==="true")return;menuOf(D).envoyes[id]=true;save();setTimeout(refreshJour,300);break;
+    case"st":if(b.getAttribute("aria-disabled")==="true")return;var o=S.commandes.filter(function(x){return x.id===id})[0];if(o){o.statut=b.dataset.st;save();setTimeout(refreshJour,b.tagName==="A"?300:0);toast(STAT[o.statut])}break;
+    case"qm":case"qp":var q=document.getElementById("oq");q.value=Math.max(1,(parseInt(q.value,10)||1)+(a==="qp"?1:-1));break;
+    case"addDish":menuOf(D).plats.push({nom:"",prix:""});save();refreshJour();var ins=document.querySelectorAll("[data-f=nom]");if(ins.length)ins[ins.length-1].focus();break;
+    case"delDish":menuOf(D).plats.splice(+b.dataset.i,1);save();refreshJour();break;
+    case"copyPrev":menuOf(D).plats=S.menus[b.dataset.d].plats.map(function(p){return{nom:p.nom,prix:p.prix}});save();refreshJour();toast("Menu repris");break;
+    case"copyMenu":copy("Menu du jour – "+(S.resto.nom||"")+" ("+dateFr(D)+")\n\n"+menuTxt(D));break;
+    case"resetSent":menuOf(D).envoyes={};save();refreshJour();break;
+    case"goClients":TAB="clients";render();window.scrollTo(0,0);break;
+    case"newFor":preClient=id;sec("secCmd",vCmd);var f=document.getElementById("ofrm");if(f){f.scrollIntoView({behavior:"smooth",block:"center"});document.getElementById("op").focus()}break;
+    case"copyRecap":copy(recapTxt());break;
+    case"delCmd":if(pendingDel===id){S.commandes=S.commandes.filter(function(x){return x.id!==id});pendingDel=null;save()}else pendingDel=id;refreshJour();break;
+    case"delCli":if(pendingDel===id){S.clients=S.clients.filter(function(x){return x.id!==id});pendingDel=null;save();toast("Client supprimé")}else pendingDel=id;render();break;
+    case"edit":editClient=id;render();window.scrollTo(0,0);break;
+    case"cancelEdit":editClient=null;render();break;
+    case"bulk":var lines=document.getElementById("bulk").value.split(/\n/),add=0,bad=0;
+      lines.forEach(function(l){l=l.trim();if(!l)return;var m=l.match(/^(.*?)[\s,;:\t-]*(\+?[\d][\d\s.\-]{7,})\s*$/);if(!m){bad++;return}
+        var t=normTel(m[2]),n=m[1].replace(/[,;:\t-]+$/,"").trim()||"Client";if(!telOk(t)||S.clients.some(function(c){return c.tel===t})){bad++;return}
+        S.clients.push({id:uid(),nom:n,tel:t,abonne:true});add++});
+      save();render();toast(add+" client(s) ajouté(s)"+(bad?", "+bad+" ligne(s) ignorée(s)":""));break;
+    case"clearEx":S.clients=S.clients.filter(function(c){return c.id.indexOf("ex")!==0});S.commandes=S.commandes.filter(function(o){return o.clientId.indexOf("ex")!==0});
+      Object.keys(S.menus).forEach(function(k){S.menus[k].envoyes={}});S.exemple=false;save();TAB="clients";render();toast("Exemples effacés. Ajoutez vos clients.");break;
+    case"resetTpl":S.tpl=Object.assign({},TPL);save();render();toast("Messages d'origine remis");break;
+    case"exportCopy":copy(JSON.stringify(S));break;
+    case"exportFile":try{var bl=new Blob([JSON.stringify(S,null,1)],{type:"application/json"}),u=URL.createObjectURL(bl),ln=document.createElement("a");ln.href=u;ln.download="dar-amine-sauvegarde-"+today()+".json";document.body.appendChild(ln);ln.click();ln.remove();setTimeout(function(){URL.revokeObjectURL(u)},4000);toast("Fichier prêt. Sinon, utilisez Copier.")}catch(er){copy(JSON.stringify(S))}break;
+    case"import":try{var o2=JSON.parse(document.getElementById("imp").value);if(!o2||!Array.isArray(o2.clients))throw 0;S=fix(o2);save();render();toast("Sauvegarde restaurée")}catch(er){toast("Ce texte n'est pas une sauvegarde valide")}break;
+    case"wipe":if(pendingDel==="wipe"){S={v:1,exemple:false,resto:{nom:S.resto.nom,cuisine:S.resto.cuisine},tpl:S.tpl,clients:[],menus:{},commandes:[]};pendingDel=null;save();toast("Tout est effacé")}else pendingDel="wipe";render();break;
+  }
+});
+render();
+})();
+</script>
+</body>
+</html>
