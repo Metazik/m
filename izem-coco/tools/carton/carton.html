@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Carton Izem 10 x 1 kg</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=block" rel="stylesheet">
+<style>
+  :root{
+    --W:640px; --H:520px; --D:400px;
+    --gold: linear-gradient(115deg,#7a5418 0%,#c8973f 18%,#f7dc95 36%,#b9862e 52%,#fbe6a4 70%,#a8792a 86%,#6e4a14 100%);
+    --gold-v: linear-gradient(180deg,#f8e2a0 0%,#d4a24a 45%,#9b6d22 100%);
+    --ink:#121110;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{width:1200px;height:1500px;overflow:hidden}
+  body{
+    background:
+      radial-gradient(ellipse 70% 55% at 50% 38%, #f4f2ee 0%, #e4e1db 55%, #cfcbc4 100%);
+    font-family:Manrope,sans-serif;
+  }
+  .stage{position:absolute;inset:0;perspective:2600px;perspective-origin:50% 30%}
+  .shadow{
+    position:absolute;left:50%;top:1040px;width:900px;height:130px;
+    transform:translateX(-47%);
+    background:radial-gradient(ellipse at center, rgba(0,0,0,.55) 0%, rgba(0,0,0,.25) 40%, rgba(0,0,0,0) 70%);
+    filter:blur(14px);
+  }
+  .contact{position:absolute;left:50%;top:1085px;width:780px;height:46px;transform:translateX(-50%);background:radial-gradient(ellipse at center,rgba(0,0,0,.7),rgba(0,0,0,0) 70%);filter:blur(8px)}
+  .box{
+    position:absolute;left:50%;top:735px;width:var(--W);height:var(--H);
+    margin-left:calc(var(--W) / -2 + 40px);margin-top:calc(var(--H) / -2);
+    transform-style:preserve-3d;
+    transform:scale(1.14) rotateX(-13deg) rotateY(31deg);
+  }
+  .face{position:absolute;overflow:hidden;backface-visibility:hidden;background:#151413}
+  .face::after{ /* grain carton mat */
+    content:"";position:absolute;inset:0;pointer-events:none;opacity:.22;mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .5 0 0 0 0 .5 0 0 0 0 .5 0 0 0 1 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  }
+  .front{width:var(--W);height:var(--H);transform:translateZ(calc(var(--D) / 2));
+    background:
+      radial-gradient(ellipse 90% 70% at 45% 30%, #2a2826 0%, #1a1918 55%, #121110 100%);}
+  .left{width:var(--D);height:var(--H);left:calc((var(--W) - var(--D)) / 2);
+    transform:rotateY(-90deg) translateZ(calc(var(--W) / 2));
+    background:linear-gradient(90deg,#0c0c0b 0%,#151413 60%,#1b1a19 100%);}
+  .top{width:var(--W);height:var(--D);top:calc((var(--H) - var(--D)) / 2);
+    transform:rotateX(90deg) translateZ(calc(var(--H) / 2));
+    background:linear-gradient(160deg,#363431 0%,#252422 50%,#1d1c1b 100%);}
+  /* light edge highlights */
+  .front::before,.left::before,.top::before{content:"";position:absolute;inset:0;pointer-events:none;z-index:5}
+  .front::before{box-shadow:inset 0 2px 0 rgba(255,255,255,.10), inset 2px 0 0 rgba(255,255,255,.06), inset -2px 0 0 rgba(0,0,0,.4)}
+  .left::before{box-shadow:inset 0 2px 0 rgba(255,255,255,.08), inset -3px 0 0 rgba(255,255,255,.08)}
+  .top::before{box-shadow:inset 0 -2px 0 rgba(255,255,255,.12)}
+
+  .gold-text{background:var(--gold);-webkit-background-clip:text;background-clip:text;color:transparent}
+
+  /* ---------- FRONT ---------- */
+  .lion{position:absolute;left:50%;top:30px;width:330px;transform:translateX(-50%);
+    mix-blend-mode:screen;filter:contrast(1.08) saturate(.92) brightness(.98);
+    -webkit-mask-image:radial-gradient(ellipse 75% 75% at 50% 50%, #000 70%, transparent 100%);}
+  .f-title{position:absolute;left:0;right:0;top:318px;text-align:center;
+    font-family:Cinzel,serif;font-weight:600;font-size:38px;letter-spacing:1.5px;line-height:1}
+  .f-sub{position:absolute;left:0;right:0;top:365px;display:flex;align-items:center;justify-content:center;gap:16px;
+    font-family:Cinzel,serif;font-weight:600;font-size:17px;letter-spacing:9px}
+  .f-sub i{display:block;width:70px;height:1.5px;background:var(--gold)}
+  .ribbon{position:absolute;left:50%;top:394px;transform:translateX(-50%);
+    padding:7px 34px 6px;background:var(--gold);color:#1b1408;
+    font-family:Manrope;font-weight:700;font-size:16px;letter-spacing:.5px;white-space:nowrap;
+    clip-path:polygon(0 0,100% 0,96% 50%,100% 100%,0 100%,4% 50%);}
+  .tagline{position:absolute;left:26px;bottom:22px;font-family:Cinzel;font-weight:600;font-size:12px;letter-spacing:4px;line-height:1.6}
+  .swoosh{position:absolute;right:0;bottom:0;width:100%;height:100%;pointer-events:none}
+  .qty{position:absolute;right:24px;bottom:18px;font-family:Manrope;font-weight:800;font-size:30px;color:#1a1308;letter-spacing:-.5px;line-height:1;text-align:right}
+  .qty small{display:block;font-size:13px;font-weight:700;letter-spacing:2.5px;margin-bottom:5px}
+  .tag{position:absolute;left:26px;top:24px;font-family:Cinzel;font-weight:700;font-size:13px;letter-spacing:4px}
+  .tag2{position:absolute;right:26px;top:24px;font-family:Cinzel;font-weight:700;font-size:13px;letter-spacing:4px}
+  .reg{position:absolute;left:482px;top:212px;width:16px;height:16px;border-radius:50%;border:1.3px solid #c99a45;
+    font:700 9px/13px Manrope;color:#d8ad5c;text-align:center}
+
+  /* ---------- LEFT SIDE ---------- */
+  .s-wrap{position:absolute;inset:0;padding:34px 40px 0 44px}
+  .s-head{display:flex;align-items:center;gap:14px}
+  .s-head img{width:110px;mix-blend-mode:screen}
+  .s-brand{font-family:Cinzel;font-weight:600;font-size:15px;letter-spacing:2px;line-height:1.35}
+  .feat{list-style:none;margin-top:22px;display:grid;gap:12px}
+  .feat li{display:flex;align-items:center;gap:14px;font-size:16px;font-weight:500;color:#d9b672;line-height:1.15}
+  .feat svg{width:38px;height:38px;flex:none;color:#d4a24a}
+  .addr{position:absolute;left:44px;bottom:32px;font-size:12.5px;line-height:1.5;color:#c9a35d;font-weight:500}
+  .addr b{font-family:Cinzel;font-size:14px;letter-spacing:1px;color:#e2bf78}
+  .handle{position:absolute;left:50%;top:40px;width:120px;height:34px;transform:translateX(-50%);
+    border-radius:20px;background:#050505;box-shadow:inset 0 4px 6px rgba(0,0,0,.9), 0 1px 0 rgba(255,255,255,.08)}
+  .icons{position:absolute;right:36px;bottom:30px;display:flex;gap:8px}
+  .icons span{width:36px;height:42px;border:1.4px solid #b8893a;border-radius:3px;display:grid;place-items:center}
+  .icons svg{width:24px;height:24px;color:#d4a24a}
+
+  /* ---------- TOP ---------- */
+  .seam{position:absolute;left:0;right:0;top:50%;height:2px;background:rgba(0,0,0,.6);box-shadow:0 1px 0 rgba(255,255,255,.07)}
+  .tape{position:absolute;left:0;right:0;top:calc(50% - 46px);height:92px;background:var(--gold);
+    box-shadow:0 0 0 1px rgba(0,0,0,.25);display:flex;align-items:center;overflow:hidden}
+  .tape .run{white-space:nowrap;font-family:Cinzel;font-weight:800;font-size:30px;letter-spacing:6px;color:#1d160a;opacity:.86}
+  .tape::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,.22),rgba(255,255,255,0) 40%,rgba(0,0,0,.15))}
+  .t-logo{position:absolute;left:30px;top:14px;font-family:Cinzel;font-weight:700;font-size:12px;letter-spacing:4px}
+</style>
+</head>
+<body>
+<div class="stage">
+  <div class="shadow"></div><div class="contact"></div>
+  <div class="box">
+
+    <!-- TOP -->
+    <div class="face top">
+      <div class="seam"></div>
+      <div class="tape"><div class="run">IZEM ◆ COCONUT CHARCOAL ◆ IZEM ◆ COCONUT CHARCOAL ◆ IZEM ◆</div></div>
+      <div class="t-logo gold-text" style="top:30px">PURE POWER · NATURAL CHOICE</div>
+      <div class="t-logo gold-text" style="top:auto;bottom:30px;left:auto;right:30px">10 × 1 KG</div>
+    </div>
+
+    <!-- LEFT SIDE -->
+    <div class="face left">
+      <div class="s-wrap">
+        <div class="s-head">
+          <img src="lion-izem.jpg" alt="">
+          <div class="s-brand gold-text">COCONUT CHARCOAL<br>BRIQUETTES</div>
+        </div>
+        <ul class="feat">
+          <li><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="20" cy="20" r="18.5"/><path d="M12 27c0-9 6-14 16-15-1 10-7 15-16 15zM12 27l8-8" stroke-linecap="round"/></svg>100% Naturel</li>
+          <li><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="20" cy="20" r="18.5"/><circle cx="20" cy="21" r="9"/><path d="M20 16v5l3 2M18 9h4" stroke-linecap="round"/></svg>Longue durée de combustion</li>
+          <li><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="20" cy="20" r="18.5"/><path d="M20 10c4 5 7 8 7 13a7 7 0 01-14 0c0-3 2-5 3-6 0 3 2 4 3 4-1-4 0-8 1-11z" stroke-linejoin="round"/></svg>Température élevée</li>
+          <li><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="20" cy="20" r="18.5"/><path d="M15 28c-2-3 2-5 0-8s2-5 0-8M21 28c-2-3 2-5 0-8s2-5 0-8M11 29l18-18" stroke-linecap="round"/></svg>Sans odeur, sans fumée</li>
+          <li><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="20" cy="20" r="18.5"/><path d="M17 10h6M18 10v7l-6 10a1.5 1.5 0 001.3 2h13.4a1.5 1.5 0 001.3-2l-6-10v-7M11 29l18-18" stroke-linecap="round" stroke-linejoin="round"/></svg>Sans produits chimiques</li>
+        </ul>
+        <div class="addr">
+          <b>Izem Coco</b><br>
+          64 Rue Abdelah El Mediouni, 1er étage, N° 2, Casablanca<br>
+          izem.store · Made in Indonesia<br>
+          Tél. +212 661 107 744
+        </div>
+        <div class="icons">
+          <span title="Garder au sec"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M3 12a9 9 0 0118 0zM12 12v7a2 2 0 01-4 0M12 3v0"/></svg></span>
+          <span title="Haut"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 20V6M4.5 9.5L8 6l3.5 3.5M16 20V6M12.5 9.5L16 6l3.5 3.5M4 21h16"/></svg></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- FRONT -->
+    <div class="face front">
+      <img class="lion" src="lion-izem.jpg" alt="">
+      <div class="reg">R</div>
+      <div class="tag gold-text">CARTON PRO</div>
+      <div class="tag2 gold-text">IZEM COCO</div>
+      <div class="f-title gold-text">COCONUT CHARCOAL</div>
+      <div class="f-sub gold-text"><i></i>BRIQUETTES<i></i></div>
+      <div class="tagline gold-text">PURE POWER<br>NATURAL CHOICE</div>
+      <div class="ribbon">100% NATURAL COCONUT SHELL</div>
+      <svg class="swoosh" viewBox="0 0 640 520" preserveAspectRatio="none">
+        <defs>
+          <linearGradient id="g1" x1="0" y1="1" x2="1" y2="0">
+            <stop offset="0" stop-color="#6e4a14"/><stop offset=".3" stop-color="#c8973f"/>
+            <stop offset=".55" stop-color="#f7dc95"/><stop offset=".8" stop-color="#b9862e"/><stop offset="1" stop-color="#fbe6a4"/>
+          </linearGradient>
+          <linearGradient id="g2" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="#c8973f" stop-opacity="0"/><stop offset=".5" stop-color="#f3d68c"/><stop offset="1" stop-color="#a8792a"/>
+          </linearGradient>
+        </defs>
+        <path d="M640 392 C 560 440, 470 488, 380 520 L 640 520 Z" fill="url(#g1)"/>
+        <path d="M640 360 C 545 420, 430 478, 320 520" fill="none" stroke="url(#g2)" stroke-width="2.4"/>
+        <path d="M640 376 C 552 430, 450 484, 350 520" fill="none" stroke="#5a3a10" stroke-width="5" opacity=".9"/>
+      </svg>
+      <div class="qty"><small>CONTIENT</small>10 × 1kg</div>
+    </div>
+
+  </div>
+</div>
+</body>
+</html>
