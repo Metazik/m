@@ -55,7 +55,9 @@ def main():
     html = (ICI / "source.html").read_text(encoding="utf-8")
     logo, _ = image("logo", "placeholder-logo.svg", 78, False)
     boite, (bw, bh) = image("boite", "placeholder-boite.svg", 80, True)
-    html = html.replace("__LOGO__", logo).replace("__BOITE__", boite)
+    carton, (cw, ch) = image("carton-10x1kg", "placeholder-boite.svg", 82, False)
+    html = html.replace("__LOGO__", logo).replace("__BOITE__", boite).replace("__CARTON__", carton)
+    html = html.replace('width="800" height="__CARTON_H__"', f'width="{cw}" height="{ch}"')
     html = html.replace('width="800" height="__BOITE_H__"', f'width="{bw}" height="{bh}"')
     # Publié par GitHub Pages depuis la racine du dépôt (izem.store)
     sortie = RACINE.parent / "index.html"

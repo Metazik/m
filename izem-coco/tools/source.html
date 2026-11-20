@@ -153,6 +153,17 @@ section{padding:72px 0}
 .produit .btn{margin-top:28px}
 @media (min-width:900px){.produit .wrap{grid-template-columns:1fr 1fr;gap:72px}.boite{width:min(100%,380px)}}
 
+/* Carton pro */
+.carton{background:var(--charbon);border-top:1px solid var(--ligne);border-bottom:1px solid var(--ligne)}
+.carton .wrap{display:grid;gap:36px;align-items:center}
+.carton-visuel{position:relative;justify-self:center;width:min(100%,460px);border-radius:22px;overflow:hidden;border:1px solid var(--ligne);box-shadow:0 30px 60px rgba(0,0,0,.55)}
+.carton-visuel img{display:block;width:100%;height:auto}
+.carton-visuel .badge{position:absolute;left:16px;top:16px;padding:7px 14px;border-radius:999px;background:linear-gradient(115deg,#c8973f,#f7dc95 45%,#b9862e);color:#1b1408;font:800 13px/1 var(--texte);letter-spacing:.18em}
+.carton .surtitre{font-size:13px;letter-spacing:.3em;color:var(--or);font-weight:700;text-transform:uppercase;margin-bottom:10px}
+.carton .actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+.carton .actions .btn{flex:1 1 220px}
+@media (min-width:900px){.carton .wrap{grid-template-columns:1fr 1fr;gap:72px}.carton-visuel{order:2;width:100%}}
+
 /* Usages */
 .usages{background:linear-gradient(180deg,var(--noir),var(--charbon) 60%,var(--noir))}
 .u-list{list-style:none;margin:40px 0 0;padding:0;display:grid;gap:18px}
@@ -257,6 +268,7 @@ footer a{text-decoration:none;font-weight:700}
     <nav class="nav" aria-label="Navigation principale">
       <a href="#qualites">Qualités</a>
       <a href="#produit">Produit</a>
+      <a href="#carton">Carton pro</a>
       <a href="#usages">Usages</a>
       <a href="#comparatif">Comparatif</a>
       <a href="#faq">FAQ</a>
@@ -323,6 +335,30 @@ footer a{text-decoration:none;font-weight:700}
           <div><dt>Livraison</dt><dd>Partout au Maroc, paiement à la livraison</dd></div>
         </dl>
         <a class="btn btn-or" href="#commande">Commander</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="carton" id="carton" aria-labelledby="titre-carton">
+    <div class="wrap">
+      <div class="carton-visuel">
+        <img src="__CARTON__" width="800" height="__CARTON_H__" alt="Carton professionnel Izem Coconut Charcoal noir et or, contenant 10 boîtes de 1 kg" loading="lazy" decoding="async">
+        <span class="badge">PRO</span>
+      </div>
+      <div>
+        <p class="surtitre">Lounges, cafés &amp; revendeurs</p>
+        <h2 class="titre-section or" id="titre-carton">Le carton professionnel, 10&nbsp;×&nbsp;1&nbsp;kg</h2>
+        <p class="chapo">Dix boîtes Izem de 1&nbsp;kg réunies dans un carton noir et or. Pratique à stocker, simple à revendre, et toujours la même qualité de braise.</p>
+        <dl class="fiche">
+          <div><dt>Contenu</dt><dd>10 boîtes de 1 kg, soit 10 kg de charbon</dd></div>
+          <div><dt>Pour qui</dt><dd>Salons de chicha, cafés, restaurants, revendeurs</dd></div>
+          <div id="fiche-prix-carton"><dt>Prix</dt><dd>Tarif professionnel sur WhatsApp, selon les quantités</dd></div>
+          <div><dt>Livraison</dt><dd>Partout au Maroc, paiement à la livraison</dd></div>
+        </dl>
+        <div class="actions">
+          <a class="btn btn-or" href="#commande" id="commander-carton">Commander un carton</a>
+          <a class="btn btn-ligne" href="https://wa.me/212661701744?text=Bonjour%20Izem%20Coco%2C%20je%20souhaite%20conna%C3%AEtre%20le%20tarif%20du%20carton%20professionnel%20(10%20x%201%20kg)." target="_blank" rel="noopener">Tarif pro sur WhatsApp</a>
+        </div>
       </div>
     </div>
   </section>
@@ -516,6 +552,7 @@ footer a{text-decoration:none;font-weight:700}
 <script>
 /* ===== Réglages ===== */
 var PRIX_UNITAIRE = 75;          // Prix d'une boîte de 1 kg en dirhams, ex. : 120. Laisser vide pour masquer le prix.
+var PRIX_CARTON = "";            // Prix du carton de 10 x 1 kg en dirhams. Vide = « tarif pro sur WhatsApp ».
 var WHATSAPP = "212661701744";   // Numéro WhatsApp, format international sans "+"
 
 (function () {
@@ -613,6 +650,15 @@ var WHATSAPP = "212661701744";   // Numéro WhatsApp, format international sans 
     } catch (e) {}
   }
 
+  /* ===== Carton pro ===== */
+  var prixCarton = parseFloat(String(PRIX_CARTON).replace(",", "."));
+  if (isFinite(prixCarton) && prixCarton > 0) {
+    document.querySelector("#fiche-prix-carton dd").innerHTML = "<strong style=\"color:var(--or-clair)\">" + dh(prixCarton) + "</strong> le carton de 10 boîtes";
+  }
+  document.getElementById("commander-carton").addEventListener("click", function () {
+    q.value = Math.max(10, Math.ceil(lireQ() / 10) * 10); majQ();
+  });
+
   /* ===== Validation et envoi WhatsApp ===== */
   var form = document.getElementById("form-commande"), alerte = document.getElementById("alerte"), ok = document.getElementById("ok");
   var champs = {
@@ -655,7 +701,7 @@ var WHATSAPP = "212661701744";   // Numéro WhatsApp, format international sans 
       "Bonjour Izem Coco, je souhaite commander :",
       "",
       "• Produit : Charbon de noix de coco, boîte 1 kg",
-      "• Quantité : " + n + (n > 1 ? " boîtes" : " boîte")
+      "• Quantité : " + n + (n > 1 ? " boîtes" : " boîte") + (n % 10 === 0 ? " (" + (n / 10) + " carton" + (n > 10 ? "s" : "") + " pro)" : "")
     ];
     if (avecPrix) lignes.push("• Total : " + dh(prix * n));
     lignes.push(
